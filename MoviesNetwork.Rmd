@@ -1,0 +1,23 @@
+---
+title: "MoviesNetwork"
+author: "Jan Moskal"
+date: "2023-12-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(igraph)
+library(tidyverse)
+library(rvest)
+library(Rcrawler)
+```
+
+```{r}
+url <- "https://www.imdb.com/chart/top/?ref_=nv_mv_250/"
+Rcrawler(url, dataUrlfilter = "tt", MaxDepth = 1)
+```
+

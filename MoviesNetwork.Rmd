@@ -10,6 +10,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
+missing_values_function <- function(x, selector){
+  specific_node <- html_node(x, selector)
+  if(is.null(specific_node)){
+    return(NA_character_)
+  }else{
+    return(html_text(specific_node, trim = TRUE))
+  }
+}
 library(igraph)
 library(tidyverse)
 library(rvest)
@@ -17,20 +25,44 @@ library(Rcrawler)
 ```
 
 ```{r}
-url <- "https://www.imdb.com/chart/top/?ref_=nv_mv_250/"
-Rcrawler(url, dataUrlfilter = "tt", MaxDepth = 1)
-links <- INDEX$Url
-links <- tibble(link = links) %>%
-  filter(str_detect(link, "/tt"))
+#url <- "https://www.imdb.com/chart/top/?ref_=nv_mv_250/"
+#Rcrawler(url, dataUrlfilter = "tt", MaxDepth = 1)
+#links <- INDEX$Url
+#links <- tibble(link = links) %>%
+  #filter(str_detect(link, "/tt"))
 ```
+
 ```{r}
-links <- str_remove(links$link, "/.ref.*")
-links <- unique(links)
-links_tt <- str_remove(links, "https://www.imdb.com/title/")
-links_tt
-paste("https://www.imdb.com/title/" ,  "tt0111161" , "/reviews?sort=totalVotes&dir=desc&ratingFilter=0", sep = "")
-df <- data.frame(links_tt)
-write_csv(df, "df.csv")
+#links <- str_remove(links$link, "/.ref.*")
+#links <- unique(links)
+#links_tt <- str_remove(links, "https://www.imdb.com/title/")
+#links_tt
+#paste("https://www.imdb.com/title/" ,  "tt0111161" , "/reviews?sort=totalVotes&dir=desc&ratingFilter=0", sep = "")
+#df <- data.frame(links_tt)
+#write_csv(df, "df.csv")
+
+tt_fragment <- read_csv("df.csv")
+```
+
+
+```{r}
+data <- data.frame()
+
+for(link in tt_fragment$links_tt){
+  page <- paste0("https://www.imdb.com/title/", link, "/reviews?sort=reviewVolume&dir=desc&ratingFilter=0")
+  page <- read_html(page) %>% 
+            html_nodes("section.article")
+  
+  name <- map_chr(page, function(x) missing_values_function(x, "div.subpage_title_block > div > div > h3 > a"))
+  
+  for(number in 1:50){
+    user <- map_chr(page, function(x) missing_values_function(x, paste0("div.lister > div.lister-list > div:nth-child(", number, ") > div.review-container > div.lister-item-content > div.display-name-date > span.display-name-link > a"))) 
+    rate <- map_chr(page, function(x) missing_values_function(x, paste0("div.lister > div.lister-list > div:nth-child(", number, ") > div.review-container > div.lister-item-content > div.ipl-ratings-bar > span > span:nth-child(2)"))) 
+                    
+    df <- data.frame(name, user, rate)
+    data <- rbind(data, df)
+  }
+}
 ```
 
 

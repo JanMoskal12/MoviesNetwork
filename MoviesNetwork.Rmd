@@ -54,7 +54,7 @@ for(link in tt_fragment$links_tt){
   
   name <- map_chr(page, function(x) missing_values_function(x, "div.subpage_title_block > div > div > h3 > a"))
   
-  for(number in 1:50){
+  for(number in 1:25){
     user <- map_chr(page, function(x) missing_values_function(x, paste0("div.lister > div.lister-list > div:nth-child(", number, ") > div.review-container > div.lister-item-content > div.display-name-date > span.display-name-link > a"))) 
     rate <- map_chr(page, function(x) missing_values_function(x, paste0("div.lister > div.lister-list > div:nth-child(", number, ") > div.review-container > div.lister-item-content > div.ipl-ratings-bar > span > span:nth-child(2)"))) 
                     
@@ -62,6 +62,10 @@ for(link in tt_fragment$links_tt){
     data <- rbind(data, df)
   }
 }
+data <-  na.omit(data)
+data$rate <- as.integer(data$rate)
+write_csv(data, "data.csv")
+saveRDS(data, "dataRDS.rds")
 ```
 
 

@@ -19,5 +19,20 @@ library(Rcrawler)
 ```{r}
 url <- "https://www.imdb.com/chart/top/?ref_=nv_mv_250/"
 Rcrawler(url, dataUrlfilter = "tt", MaxDepth = 1)
+links <- INDEX$Url
+links <- tibble(link = links) %>%
+  filter(str_detect(link, "/tt"))
 ```
+```{r}
+links <- str_remove(links$link, "/.ref.*")
+links <- unique(links)
+links_tt <- str_remove(links, "https://www.imdb.com/title/")
+links_tt
+paste("https://www.imdb.com/title/" ,  "tt0111161" , "/reviews?sort=totalVotes&dir=desc&ratingFilter=0", sep = "")
+df <- data.frame(links_tt)
+write_csv(df, "df.csv")
+```
+
+
+
 

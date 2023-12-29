@@ -50,7 +50,7 @@ data <- data.frame()
 for(link in tt_fragment$links_tt){
   page <- paste0("https://www.imdb.com/title/", link, "/reviews?sort=reviewVolume&dir=desc&ratingFilter=0")
   page <- read_html(page) %>% 
-            html_nodes("section.article")
+            html_nodes("")
   
   name <- map_chr(page, function(x) missing_values_function(x, "div.subpage_title_block > div > div > h3 > a"))
   
@@ -68,6 +68,40 @@ write_csv(data, "data.csv")
 saveRDS(data, "dataRDS.rds")
 ```
 
+```{r}
+movies_graph <- read_csv("data.csv")
+graph <- graph.data.frame(movies_graph, directed = TRUE)
+write.graph(graph, "movies_network.graphml", format = "graphml")
+```
+
+
+
+# Actors in movies
+```{r}
+data_a <- data.frame()
+
+for(link in tt_fragment$links_tt[1:4]){
+  page <- paste0("https://www.imdb.com/title/", link)
+  node1 <- read_html(page)
+  node2 <- read_html(page) %>% 
+            html_nodes("div.sc-a83bf66d-1.gYStnb.ipc-page-grid__item.ipc-page-grid__item--span-2 > section.ipc-page-section.ipc-page-section--base.sc-bfec09a1-0.jgUBLM.title-cast.title-cast--movie.celwidget > div.ipc-shoveler.ipc-shoveler--base.ipc-shoveler--page0.title-cast__grid > div.ipc-sub-grid.ipc-sub-grid--page-span-2.ipc-sub-grid--wraps-at-above-l.ipc-shoveler__grid")
+  
+  movie <- node1 %>% 
+            html_nodes("div.sc-e226b0e3-3.dwkouE > div.sc-69e49b85-0.jqlHBQ > h1 > span") %>% 
+            html_text()
+  
+  for(number in 1:20){
+    
+    actor <- map_chr(node2, function(x) missing_values_function(x,
+                                                      paste0("div:nth-child(", number, ") > div.sc-bfec09a1-7.gWwKlt > a")))
+    
+  df_a <- data.frame(movie, actor)
+  data_a <- rbind(data_a, df_a)
+  }
+}
+
+data_a <- na.omit(data_a)
+```
 
 
 

@@ -104,6 +104,12 @@ data_a <- na.omit(data_a)
 write_csv(data_a, "data_a.csv")
 
 ```
+```{r}
+movies_actors_graph <- read_csv("data_a.csv")
+graph_a <- graph.data.frame(movies_actors_graph, directed = TRUE)
+write.graph(graph_a, "movies_actors_graph.graphml", format = "graphml")
+```
+
 
 
 

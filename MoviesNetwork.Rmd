@@ -80,7 +80,7 @@ write.graph(graph, "movies_network.graphml", format = "graphml")
 ```{r}
 data_a <- data.frame()
 
-for(link in tt_fragment$links_tt[1:4]){
+for(link in tt_fragment$links_tt){
   page <- paste0("https://www.imdb.com/title/", link)
   node1 <- read_html(page)
   node2 <- read_html(page) %>% 
@@ -101,6 +101,8 @@ for(link in tt_fragment$links_tt[1:4]){
 }
 
 data_a <- na.omit(data_a)
+write_csv(data_a, "data_a.csv")
+
 ```
 
 

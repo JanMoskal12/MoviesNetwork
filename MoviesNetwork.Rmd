@@ -109,6 +109,12 @@ actors %>%
   group_by(actor) %>% 
   count(sort = TRUE)
 ```
+```{r}
+movies_actors_graph <- read_csv("data_a.csv")
+graph_a <- graph.data.frame(movies_actors_graph, directed = TRUE)
+write.graph(graph_a, "movies_actors_graph.graphml", format = "graphml")
+```
+
 
 
 

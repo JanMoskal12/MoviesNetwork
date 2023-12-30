@@ -102,7 +102,12 @@ for(link in tt_fragment$links_tt){
 
 data_a <- na.omit(data_a)
 write_csv(data_a, "data_a.csv")
+actors <- read_csv("data_a.csv")
 
+
+actors %>% 
+  group_by(actor) %>% 
+  count(sort = TRUE)
 ```
 
 

@@ -1,0 +1,179 @@
+---
+title: "MoviesNetworkGraphAnalysis"
+output: html_document
+date: "2023-12-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE, message=FALSE, warning=FALSE}
+# Libraries and functions
+library(tidyverse)
+library(igraph)
+```
+
+```{r, include=FALSE}
+# Reading movies_actors_graph
+movies_actors_graph <- read.graph("movies_actors_graph.graphml", format = "graphml")
+```
+
+## Analysis of the network as a whole
+```{r}
+# Graph basic parameters
+V(movies_actors_graph)
+E(movies_actors_graph)
+
+
+# Graph degree
+dg_all <- degree(movies_actors_graph)
+dg_out <- degree(movies_actors_graph, mode = "out")
+dg_in <- degree(movies_actors_graph, mode = "in")
+mean(degree(movies_actors_graph))
+
+max(dg_all)
+V(movies_actors_graph)$name[which(dg_all == max(dg_all))]
+min(dg_all)
+V(movies_actors_graph)$name[which(dg_all == min(dg_all))]
+
+max(dg_in)
+V(movies_actors_graph)$name[which(dg_in == max(dg_in))]
+min(dg_in)
+V(movies_actors_graph)$name[which(dg_in == min(dg_in))]
+
+max(dg_out)
+V(movies_actors_graph)$name[which(dg_out == max(dg_out))]
+min(dg_out)
+V(movies_actors_graph)$name[which(dg_out == min(dg_out))]
+
+
+# Graph coherence
+is.connected(movies_actors_graph, mode = "strong")
+cds1 <- components(movies_actors_graph, mode = "strong")
+is.connected(movies_actors_graph, mode = "weak")
+cds2 <- components(movies_actors_graph, mode = "weak")
+
+plot(movies_actors_graph, vertex.color = cds1$membership, edge.arrow.width = 0.01, vertex.label = NA)
+plot(movies_actors_graph, vertex.color = cds2$membership, edge.arrow.width = 0.01, vertex.label = NA)
+
+
+# Graph density
+edge_density(movies_actors_graph)
+
+
+# Graph diameter
+diameter(movies_actors_graph, directed = TRUE, unconnected = !is.connected(movies_actors_graph))
+diameter(movies_actors_graph, directed = FALSE, unconnected = !is.connected(movies_actors_graph))
+
+# Graph average path length
+average.path.length(movies_actors_graph, directed = TRUE, unconnected = !is.connected(movies_actors_graph))
+average.path.length(movies_actors_graph, directed = FALSE, unconnected = !is.connected(movies_actors_graph))
+```
+
+## Analysis of individual vertex parameters 
+```{r}
+# Graph degree centrality
+degree(movies_actors_graph)
+hist(degree(movies_actors_graph))
+strength(movies_actors_graph)
+hist(strength(movies_actors_graph))
+
+
+# Graph betweenness
+bw <- betweenness(movies_actors_graph)
+
+max(bw)
+V(movies_actors_graph)$name[which(bw == max(bw))]
+
+plot(movies_actors_graph, vertex.size = betweenness(movies_actors_graph) * 0.05, edge.arrow.width = 0.01, vertex.label = NA)
+
+
+# Graph closeness
+cl <- closeness(movies_actors_graph)
+
+max(cl)
+V(movies_actors_graph)$name[which(cl == max(cl))]
+
+hist(closeness(movies_actors_graph))
+
+
+# Graph eigen centrality
+ec1 <- eigen_centrality(movies_actors_graph)
+ec2 <- eigen_centrality(movies_actors_graph, directed = TRUE)
+
+V(movies_actors_graph)$name[which(ec1$vector == max(ec1$vetor))]
+V(movies_actors_graph)$name[which(ec2$vector == max(ec2$vetor))]
+
+
+# Graph PageRank
+pg <- page_rank(movies_actors_graph)
+
+max(pg$vector)
+V(movies_actors_graph)$name[which(pg$vector == max(pg$vector))]
+min(pg$vector)
+V(movies_actors_graph)$name[which(pg$vector == min(pg$vector))]
+
+
+# Graph eccentricity
+eccentricity(movies_actors_graph)
+hist(eccentricity(movies_actors_graph))
+```
+
+## Cluster analysis
+```{r}
+movies_actors_undirected_df <- read_csv("movies_actors_df.csv")
+movies_actors_undirected_graph <- graph.data.frame(movies_actors_undirected_df, directed = FALSE)
+
+
+# Clustering - multilevel (louvain) algorithm
+l <- cluster_louvain(movies_actors_undirected_graph)
+length(l) # number of communities
+sort(sizes(l)) # sorted by increasing community sizes
+round(modularity(l), 6) # modularity rounded to 6 decimal places
+membership(l) # which vertex belongs to which community
+communities(l) # composition of individual communities
+
+
+for (number in 1:length(l)) {
+  V(movies_actors_undirected_graph)[membership(l) == number]$label
+}
+movies_actors_undirected_graph$community <- fg$membership # atrybut społeczności
+V(movies_actors_undirected_graph)$color <- movies_actors_undirected_graph$community # różne kolory dla różnych społeczności
+movies_actors_undirected_graph$Modularity_Class <- fg$membership
+movies_actors_undirected_graph$Degree <- fg$membership
+
+comm1 <- induced_subgraph(movies_actors_undirected_graph, v = which(movies_actors_undirected_graph$community == 1))
+# induced subgraph by the set of vertices from community 1
+tkplot(comm1)
+
+
+# Clustering - fast greedy algorithm
+fg <- cluster_fast_greedy(movies_actors_undirected_graph)
+length(fg) # number of communities
+sort(sizes(fg)) # sorted by increasing community sizes
+round(modularity(fg), 6) # modularity rounded to 6 decimal places
+membership(fg) # which vertex belongs to which community
+communities(fg) # composition of individual communities
+
+
+for (number in 1:length(fg)) {
+  V(movies_actors_undirected_graph)[membership(fg) == number]$label
+}
+movies_actors_undirected_graph$community <- l$membership # atrybut społeczności
+V(movies_actors_undirected_graph)$color <- movies_actors_undirected_graph$community # różne kolory dla różnych społeczności
+movies_actors_undirected_graph$Modularity_Class <- l$membership
+movies_actors_undirected_graph$Degree <- l$membership
+
+comm1 <- induced_subgraph(movies_actors_undirected_graph, v = which(movies_actors_undirected_graph$community == 1))
+# induced subgraph by the set of vertices from community 1
+tkplot(comm1)
+
+
+
+# le <- cluster_leading_eigen(movies_actors_undirected_graph)
+# eb <- cluster_edge_betweenness(movies_actors_undirected_graph)
+
+## NMI
+round(compare(l, fg, method = "nmi"), 6) # obliczenie parametru NMI podzialow (porównanie)
+```

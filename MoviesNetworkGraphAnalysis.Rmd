@@ -30,23 +30,23 @@ ecount(movies_actors_graph) # 4433 edges
 # Graph degree
 dg_all <- degree(movies_actors_graph) # Disribution: mostly 1(actors) and 18(because most movies got 18 actors added) 
 dg_out <- degree(movies_actors_graph, mode = "out") # Distribution: almost all 1 and some 18
-dg_in <- degree(movies_actors_graph, mode = "in") # Problem : 0 degree?
-mean(degree(movies_actors_graph)) # Around 2.17, mostly because a lot of actors played in one movie on the list of top 250 and movies have a lot of actors
+dg_in <- degree(movies_actors_graph, mode = "in") # 0 degree - all movies, mostly 1 and 2  
+mean(degree(movies_actors_graph)) # Around 2.17, mostly because a lot of actors play in one movie on the list of top 250 and movies have a lot of actors
 
-max(dg_all)
-V(movies_actors_graph)$name[which(dg_all == max(dg_all))]
-min(dg_all)
-V(movies_actors_graph)$name[which(dg_all == min(dg_all))]
+max(dg_all) # 18
+V(movies_actors_graph)$name[which(dg_all == max(dg_all))] # Most movies (240/250) have 18 actors
+min(dg_all) # 1
+V(movies_actors_graph)$name[which(dg_all == min(dg_all))] # Most actors play in one movie
 
-max(dg_in)
-V(movies_actors_graph)$name[which(dg_in == max(dg_in))]
-min(dg_in)
-V(movies_actors_graph)$name[which(dg_in == min(dg_in))]
+max(dg_in) # 9
+V(movies_actors_graph)$name[which(dg_in == max(dg_in))] # Robert De Niro played in the greatest number of movies on the list 
+min(dg_in) # 0
+V(movies_actors_graph)$name[which(dg_in == min(dg_in))] # All movies are here with 0 degree
 
-max(dg_out)
-V(movies_actors_graph)$name[which(dg_out == max(dg_out))]
-min(dg_out)
-V(movies_actors_graph)$name[which(dg_out == min(dg_out))]
+max(dg_out) # 18
+V(movies_actors_graph)$name[which(dg_out == max(dg_out))] # Movies with a lot of actors
+min(dg_out) # 0
+V(movies_actors_graph)$name[which(dg_out == min(dg_out))] # All actors are here with 0 degree
 
 
 # Graph coherence

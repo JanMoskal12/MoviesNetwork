@@ -23,14 +23,15 @@ movies_actors_graph <- read.graph("movies_actors_graph.graphml", format = "graph
 ```{r}
 # Graph basic parameters
 V(movies_actors_graph)
+vcount(movies_actors_graph) # 4079 vertixes(250 movies and 3829 actors)
 E(movies_actors_graph)
-
+ecount(movies_actors_graph) # 4433 edges
 
 # Graph degree
-dg_all <- degree(movies_actors_graph)
-dg_out <- degree(movies_actors_graph, mode = "out")
-dg_in <- degree(movies_actors_graph, mode = "in")
-mean(degree(movies_actors_graph))
+dg_all <- degree(movies_actors_graph) # Disribution: mostly 1(actors) and 18(because most movies got 18 actors added) 
+dg_out <- degree(movies_actors_graph, mode = "out") # Distribution: almost all 1 and some 18
+dg_in <- degree(movies_actors_graph, mode = "in") # Problem : 0 degree?
+mean(degree(movies_actors_graph)) # Around 2.17, mostly because a lot of actors played in one movie on the list of top 250 and movies have a lot of actors
 
 max(dg_all)
 V(movies_actors_graph)$name[which(dg_all == max(dg_all))]

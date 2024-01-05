@@ -87,27 +87,34 @@ average.path.length(movies_actors_graph, directed = FALSE, unconnected = !is.con
 ## Analysis of individual vertex parameters 
 ```{r}
 # Graph degree centrality
-degree(movies_actors_graph)
+degree(movies_actors_graph) # Just like in the previous chunk
 hist(degree(movies_actors_graph))
-strength(movies_actors_graph)
+strength(movies_actors_graph) # Same as for degree
 hist(strength(movies_actors_graph))
 
 
 # Graph betweenness
-bw <- betweenness(movies_actors_graph)
+bw1 <- betweenness(movies_actors_graph, directed = FALSE) 
+summary(bw1)
+# Most movies and actors lacks distinctly defined intermediary nodes, possibly due to an even distribution of connections between movies and actors. However, there are certain nodes that might play a slightly more significant role in connecting or bridging specific groups of movies or actors in the network.
+max(bw1) #491269.2
+V(movies_actors_graph)$name[which(bw == max(bw1))] # Lawrance of Arabia: Interesting phenomenon, worth checking or error
 
-max(bw)
-V(movies_actors_graph)$name[which(bw == max(bw))]
+plot(movies_actors_graph, vertex.size = betweenness(movies_actors_graph, directed = FALSE) * 0.05, edge.arrow.width = 0.01, vertex.label = NA)
 
-plot(movies_actors_graph, vertex.size = betweenness(movies_actors_graph) * 0.05, edge.arrow.width = 0.01, vertex.label = NA)
+bw2 <- betweenness(movies_actors_graph) 
+summary(bw) # There is no betweenness for any vertex
+max(bw) # 0
+V(movies_actors_graph)$name[which(bw == max(bw1))] # Every vertex is here
 
+plot(movies_actors_graph, vertex.size = betweenness(movies_actors_graph, directed = FALSE) * 0.05, edge.arrow.width = 0.01, vertex.label = NA)
 
 # Graph closeness
 cl <- closeness(movies_actors_graph)
 
-max(cl)
-V(movies_actors_graph)$name[which(cl == max(cl))]
-
+summary(cl)
+max(cl) # Because graph is not connected there are some vertexes that are isolated from other ones
+V(movies_actors_graph)$name[which(cl == 0.2)] # Persona: For max(cl) (but not NaN) worth checking
 hist(closeness(movies_actors_graph))
 
 
@@ -115,22 +122,42 @@ hist(closeness(movies_actors_graph))
 ec1 <- eigen_centrality(movies_actors_graph)
 ec2 <- eigen_centrality(movies_actors_graph, directed = TRUE)
 
-V(movies_actors_graph)$name[which(ec1$vector == max(ec1$vetor))]
-V(movies_actors_graph)$name[which(ec2$vector == max(ec2$vetor))]
+summary(ec1$vector)
+max(ec1$vector) 
+V(movies_actors_graph)$name[which(ec1$vector == 1)] # Gwiezdne wojny: Część V - Imperium kontratakuje: worth checking
+summary(ec2$vector)
+max(ec2$vector)
+V(movies_actors_graph)$name[which(ec2$vector == max(ec2$vetor))] 
 
-
+hist(ec1$vector)
+hist(ec2$vector)
 # Graph PageRank
-pg <- page_rank(movies_actors_graph)
+pg1 <- page_rank(movies_actors_graph, directed = FALSE)
+pg2 <- page_rank(movies_actors_graph)
 
-max(pg$vector)
-V(movies_actors_graph)$name[which(pg$vector == max(pg$vector))]
-min(pg$vector)
-V(movies_actors_graph)$name[which(pg$vector == min(pg$vector))]
+max(pg1$vector)
+V(movies_actors_graph)$name[which(pg1$vector == max(pg1$vector))] # Some movies, worth checking
+min(pg1$vector)
+V(movies_actors_graph)$name[which(pg1$vector == min(pg1$vector))] # Some actors, worth checking
 
+max(pg2$vector)
+V(movies_actors_graph)$name[which(pg2$vector == max(pg2$vector))] 
+# Robert de Niro highest chances of landing while traversing the graph
+min(pg2$vector)
+V(movies_actors_graph)$name[which(pg2$vector == min(pg2$vector))] # All movies because graph is not connected
 
+hist(pg1$vector)
+hist(pg2$vector)
 # Graph eccentricity
-eccentricity(movies_actors_graph)
-hist(eccentricity(movies_actors_graph))
+ecc <- eccentricity(movies_actors_graph)
+
+summary(ecc)
+max(ecc)
+V(movies_actors_graph)$name[which(ecc == max(ecc))] # Some actors, worth checking
+min(ecc)
+V(movies_actors_graph)$name[which(ecc == min(ecc))] # Some movies, worth checking
+
+hist(ecc)
 ```
 
 ## Cluster analysis

@@ -23,15 +23,16 @@ movies_actors_graph <- read.graph("movies_actors_graph.graphml", format = "graph
 ```{r}
 # Graph basic parameters
 V(movies_actors_graph)
-vcount(movies_actors_graph) # 4079 vertixes(250 movies and 3829 actors)
+vcount(movies_actors_graph) # 4079 vertexes(250 movies and 3829 actors)
 E(movies_actors_graph)
 ecount(movies_actors_graph) # 4433 edges
 
 # Graph degree
-dg_all <- degree(movies_actors_graph) # Disribution: mostly 1(actors) and 18(because most movies got 18 actors added) 
+dg_all <- degree(movies_actors_graph) # Distribution: mostly 1(actors) and 18(because most movies got 18 actors added) 
 dg_out <- degree(movies_actors_graph, mode = "out") # Distribution: almost all 1 and some 18
 dg_in <- degree(movies_actors_graph, mode = "in") # 0 degree - all movies, mostly 1 and 2  
-mean(degree(movies_actors_graph)) # Around 2.17, mostly because a lot of actors play in one movie on the list of top 250 and movies have a lot of actors
+mean(degree(movies_actors_graph)) 
+# Around 2.17, mostly because a lot of actors play in one movie on the list of top 250 and movies have a lot of actors
 
 max(dg_all) # 18
 V(movies_actors_graph)$name[which(dg_all == max(dg_all))] # Most movies (240/250) have 18 actors
@@ -50,9 +51,11 @@ V(movies_actors_graph)$name[which(dg_out == min(dg_out))] # All actors are here 
 
 
 # Graph coherence
-is.connected(movies_actors_graph, mode = "strong")
+is.connected(movies_actors_graph, mode = "strong") 
+# Not connected, because there are only edges out for movies vertexes, and edges in for actots vertexes
 cds1 <- components(movies_actors_graph, mode = "strong")
-is.connected(movies_actors_graph, mode = "weak")
+is.connected(movies_actors_graph, mode = "weak") 
+# Not connected, because there are only edges out for movies vertexes, and edges in for actots vertexes
 cds2 <- components(movies_actors_graph, mode = "weak")
 
 plot(movies_actors_graph, vertex.color = cds1$membership, edge.arrow.width = 0.01, vertex.label = NA)
@@ -60,16 +63,25 @@ plot(movies_actors_graph, vertex.color = cds2$membership, edge.arrow.width = 0.0
 
 
 # Graph density
-edge_density(movies_actors_graph)
+edge_density(movies_actors_graph) 
+# A density of this magnitude suggests very few connections between movies and actors compared to all possible connections between them.
+# This is related to fact that most actors are involved in a small number of movies from the list.
+# Artistic Value and Quality: The Top 250 IMDb often includes movies of high artistic quality, where cast diversity might result from careful actor selection and their acting skills, contributing to the films' overall quality.
+# International Character: Movies on this list may come from various countries and cultures, leading to actor diversity associated with different nationalities, languages, and acting styles.
+# Directorial Creativity: The directors of these films might actively seek actor diversity, aiming to convey different perspectives and experiences through a variety of actors in their productions.
 
 
 # Graph diameter
-diameter(movies_actors_graph, directed = TRUE, unconnected = !is.connected(movies_actors_graph))
+diameter(movies_actors_graph, directed = TRUE, unconnected = !is.connected(movies_actors_graph)) 
+# The diameter is 1, because there is only one edge between two vertices (from movie to actor).
 diameter(movies_actors_graph, directed = FALSE, unconnected = !is.connected(movies_actors_graph))
+# A result of 20 could suggest that the longest path between the most distant vertices (movie-actor-movie-actor...)consists of 20 steps 
 
 # Graph average path length
-average.path.length(movies_actors_graph, directed = TRUE, unconnected = !is.connected(movies_actors_graph))
+average.path.length(movies_actors_graph, directed = TRUE, unconnected = !is.connected(movies_actors_graph))  
+# This suggests that in one of the connected components of the graph, the average distance between two vertices is 1 (from movie to actor).
 average.path.length(movies_actors_graph, directed = FALSE, unconnected = !is.connected(movies_actors_graph))
+# Such large average distances might arise due to various factors such as diverse movies, disjointed groups of movies or actors
 ```
 
 ## Analysis of individual vertex parameters 

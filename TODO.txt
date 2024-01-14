@@ -1,0 +1,5 @@
+Grafy i sieci:
+	-przejrzeć wymagania projektu i wybrać rzeczy najlepiej pasujące rzeczy do prezentacji 
+	-wybrać rzeczy, które chcemy pokazać interaktywnie
+	-zastanowić się nad dodaniem rzeczy, które mają sens w teorii grafów, a nie mają w kontekście danych
+	-przygotować plan samego prezentowania prezentacji

@@ -1,0 +1,32 @@
+---
+title: "Testing"
+author: "Jan Moskal"
+date: "2024-01-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(igraph)
+library(tidyverse)
+```
+
+
+```{r}
+data <- read_csv("movies_actors_df.csv")
+three_movies <- three_movies[1:54,]
+movies_years <- data.frame(c("Skazani na Shawshank", "Mroczny Rycerz", "Ojciec chrzestny"),
+                           c(1994, 2008, 1972))
+colnames(movies_years) <- c("movie", "year")
+
+three_movies <- left_join(three_movies, movies_years) 
+
+out_movies <- data %>% group_by(movie) %>% count()
+
+graph <- graph_from_data_frame(three_movies, directed = TRUE)
+write.graph(graph, "test.graphml", format = "graphml")
+```
+

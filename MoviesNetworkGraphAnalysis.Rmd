@@ -52,10 +52,10 @@ V(movies_actors_graph)$name[which(dg_out == min(dg_out))] # All actors are here 
 
 # Graph coherence
 is.connected(movies_actors_graph, mode = "strong") 
-# Not connected, because there are only edges out for movies vertexes, and edges in for actots vertexes
+# Not connected, because there are only edges out for movies vertexes, and edges in for actors vertexes
 cds1 <- components(movies_actors_graph, mode = "strong")
 is.connected(movies_actors_graph, mode = "weak") 
-# Not connected, because there are only edges out for movies vertexes, and edges in for actots vertexes
+# Not connected, because there are only edges out for movies vertexes, and edges in for actors vertexes
 cds2 <- components(movies_actors_graph, mode = "weak")
 
 plot(movies_actors_graph, vertex.color = cds1$membership, edge.arrow.width = 0.01, vertex.label = NA)
@@ -98,14 +98,14 @@ bw1 <- betweenness(movies_actors_graph, directed = FALSE)
 summary(bw1)
 # Most movies and actors lacks distinctly defined intermediary nodes, possibly due to an even distribution of connections between movies and actors. However, there are certain nodes that might play a slightly more significant role in connecting or bridging specific groups of movies or actors in the network.
 max(bw1) #491269.2
-V(movies_actors_graph)$name[which(bw == max(bw1))] # Lawrance of Arabia: Interesting phenomenon, worth checking or error
+V(movies_actors_graph)$name[which(bw1 == max(bw1))] # Lawrance of Arabia: Interesting phenomenon, worth checking or error
 
 plot(movies_actors_graph, vertex.size = betweenness(movies_actors_graph, directed = FALSE) * 0.05, edge.arrow.width = 0.01, vertex.label = NA)
 
 bw2 <- betweenness(movies_actors_graph) 
-summary(bw) # There is no betweenness for any vertex
-max(bw) # 0
-V(movies_actors_graph)$name[which(bw == max(bw1))] # Every vertex is here
+summary(bw2) # There is no betweenness for any vertex
+max(bw2) # 0
+V(movies_actors_graph)$name[which(bw2 == max(bw2))] # Every vertex is here
 
 plot(movies_actors_graph, vertex.size = betweenness(movies_actors_graph, directed = FALSE) * 0.05, edge.arrow.width = 0.01, vertex.label = NA)
 

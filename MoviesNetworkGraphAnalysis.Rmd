@@ -178,14 +178,15 @@ communities(l) # composition of individual communities
 for (number in 1:length(l)) {
   V(movies_actors_undirected_graph)[membership(l) == number]$label
 }
-movies_actors_undirected_graph$community <- fg$membership # atrybut społeczności
+movies_actors_undirected_graph$community <- l$membership # atrybut społeczności
 V(movies_actors_undirected_graph)$color <- movies_actors_undirected_graph$community # różne kolory dla różnych społeczności
-movies_actors_undirected_graph$Modularity_Class <- fg$membership
-movies_actors_undirected_graph$Degree <- fg$membership
+movies_actors_undirected_graph$Modularity_Class <- l$membership
+movies_actors_undirected_graph$Degree <- l$membership
 
-comm1 <- induced_subgraph(movies_actors_undirected_graph, v = which(movies_actors_undirected_graph$community == 1))
+comm1 <- induced_subgraph(movies_actors_undirected_graph, v = which(movies_actors_undirected_graph$community == 135))
 # induced subgraph by the set of vertices from community 1
 tkplot(comm1)
+
 
 
 # Clustering - fast greedy algorithm

@@ -57,12 +57,11 @@ test$movie <- str_remove(test$movie, "\\d+\\.+ ")
 
 number_of_actors <- data %>% group_by(movie) %>% count()
 data <- left_join(data, number_of_actors) 
-
 final_data <- left_join(data, test)
-row_index <- which(final_data$movie == "Tańczący z wilkami")
-final_data[row_index, "votes"] <- 286000
+row_index <- which(final_data$movie == "Persona")
+final_data[row_index, "ranking"] <- 8.1
 
-final_data %>% 
+final_data <- final_data %>% 
   mutate(ranking = ranking / n,
          year = year / n,
          votes = votes / n) %>% 

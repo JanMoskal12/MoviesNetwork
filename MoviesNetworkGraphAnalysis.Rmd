@@ -31,6 +31,7 @@ ecount(movies_actors_graph) # 4433 edges
 dg_all <- degree(movies_actors_graph) # Distribution: mostly 1(actors) and 18(because most movies got 18 actors added) 
 dg_out <- degree(movies_actors_graph, mode = "out") # Distribution: almost all 1 and some 18
 dg_in <- degree(movies_actors_graph, mode = "in") # 0 degree - all movies, mostly 1 and 2  
+dg_in_1 <- dg_in[dg_in > 0]
 mean(degree(movies_actors_graph)) 
 # Around 2.17, mostly because a lot of actors play in one movie on the list of top 250 and movies have a lot of actors
 
@@ -82,6 +83,23 @@ average.path.length(movies_actors_graph, directed = TRUE, unconnected = !is.conn
 # This suggests that in one of the connected components of the graph, the average distance between two vertices is 1 (from movie to actor).
 average.path.length(movies_actors_graph, directed = FALSE, unconnected = !is.connected(movies_actors_graph))
 # Such large average distances might arise due to various factors such as diverse movies, disjointed groups of movies or actors
+
+
+plot_1 <- ggplot(data = as.data.frame(dg_in[dg_in > 0]), aes(x = dg_in[dg_in > 0])) +
+  geom_histogram(bins = 10, fill = "") +
+  scale_x_continuous(breaks = seq(from = 0 , to = 10, by = 1)) +
+  labs(x = "Liczba filmów w których aktor brał udział", y = "Liczba aktorów", title = "Rozkład liczby filmów w których aktorzy brali udział") +
+  theme_minimal()
+
+plot_2 <- ggplot(data = as.data.frame(ecc), aes(x = ecc)) +
+  geom_histogram(bins = 10, fill = "red") +
+  scale_x_continuous(breaks = seq(from = 0 , to = 20, by = 2)) +
+  labs(x = "Liczba filmów w których aktor brał udział", y = "Liczba aktorów", title = "Rozkład liczby filmów w których aktorzy brali udział") +
+  theme_minimal()
+hist(ecc, l)
+
+plot_2
+ggsave("Pictures/plot_2.png")
 ```
 
 ## Analysis of individual vertex parameters 
@@ -110,11 +128,11 @@ V(movies_actors_graph)$name[which(bw2 == max(bw2))] # Every vertex is here
 plot(movies_actors_graph, vertex.size = betweenness(movies_actors_graph, directed = FALSE) * 0.05, edge.arrow.width = 0.01, vertex.label = NA)
 
 # Graph closeness
-cl <- closeness(movies_actors_graph)
+cl <- closeness(movies_actors_undirected_graph)
 
 summary(cl)
 max(cl) # Because graph is not connected there are some vertexes that are isolated from other ones
-V(movies_actors_graph)$name[which(cl == 0.2)] # Persona: For max(cl) (but not NaN) worth checking
+V(movies_actors_graph)$name[which(cl == max(cl))] # Persona: For max(cl) (but not NaN) worth checking
 hist(closeness(movies_actors_graph))
 
 
@@ -124,7 +142,7 @@ ec2 <- eigen_centrality(movies_actors_graph, directed = TRUE)
 
 summary(ec1$vector)
 max(ec1$vector) 
-V(movies_actors_graph)$name[which(ec1$vector == 1)] # Gwiezdne wojny: Część V - Imperium kontratakuje: worth checking
+V(movies_actors_undirected_graph)$name[which(ec1$vector == max(ec1$vector))] # Gwiezdne wojny: Część V - Imperium kontratakuje: worth checking
 summary(ec2$vector)
 max(ec2$vector)
 V(movies_actors_graph)$name[which(ec2$vector == max(ec2$vetor))] 
@@ -136,12 +154,12 @@ pg1 <- page_rank(movies_actors_graph, directed = FALSE)
 pg2 <- page_rank(movies_actors_graph)
 
 max(pg1$vector)
-V(movies_actors_graph)$name[which(pg1$vector == max(pg1$vector))] # Some movies, worth checking
+V(movies_actors_graph)$name[which(pg1$vector == max(pg1$vector))][1]# Some movies, worth checking
 min(pg1$vector)
 V(movies_actors_graph)$name[which(pg1$vector == min(pg1$vector))] # Some actors, worth checking
 
 max(pg2$vector)
-V(movies_actors_graph)$name[which(pg2$vector == max(pg2$vector))] 
+V(movies_actors_graph)$name[which(pg2$vector == max(pg2$vector))]
 # Robert de Niro highest chances of landing while traversing the graph
 min(pg2$vector)
 V(movies_actors_graph)$name[which(pg2$vector == min(pg2$vector))] # All movies because graph is not connected
@@ -149,11 +167,11 @@ V(movies_actors_graph)$name[which(pg2$vector == min(pg2$vector))] # All movies b
 hist(pg1$vector)
 hist(pg2$vector)
 # Graph eccentricity
-ecc <- eccentricity(movies_actors_graph)
+ecc <- eccentricity(movies_actors_undirected_graph)
 
 summary(ecc)
 max(ecc)
-V(movies_actors_graph)$name[which(ecc == max(ecc))] # Some actors, worth checking
+V(movies_actors_undirected_graph)$name[which(ecc == max(ecc))] # Some actors, worth checking
 min(ecc)
 V(movies_actors_graph)$name[which(ecc == min(ecc))] # Some movies, worth checking
 

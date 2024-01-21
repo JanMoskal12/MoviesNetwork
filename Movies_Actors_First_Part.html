@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Movies_Actors_Presentation_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Movies_Actors_Presentation_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Movies_Actors_Presentation_files/libs/quarto-html/popper.min.js"></script>
-<script src="Movies_Actors_Presentation_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Movies_Actors_Presentation_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Movies_Actors_Presentation_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="Movies_Actors_Presentation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="Movies_Actors_Presentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="Movies_Actors_First_Part_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Movies_Actors_First_Part_files/libs/quarto-html/tabby.min.js"></script>
+<script src="Movies_Actors_First_Part_files/libs/quarto-html/popper.min.js"></script>
+<script src="Movies_Actors_First_Part_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="Movies_Actors_First_Part_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Movies_Actors_First_Part_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="Movies_Actors_First_Part_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="Movies_Actors_First_Part_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
-  <title>Movies Actors</title>
+  <title>movies_actors_first_part</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Movies_Actors_Presentation_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Movies_Actors_Presentation_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="Movies_Actors_First_Part_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="Movies_Actors_First_Part_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -29,11 +29,11 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="Movies_Actors_Presentation_files/libs/revealjs/dist/theme/quarto.css">
-  <link href="Movies_Actors_Presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Movies_Actors_Presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Movies_Actors_Presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Movies_Actors_Presentation_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="Movies_Actors_First_Part_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="Movies_Actors_First_Part_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="Movies_Actors_First_Part_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="Movies_Actors_First_Part_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="Movies_Actors_First_Part_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -323,94 +323,53 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Movies Actors</h1>
 
-<div class="quarto-title-authors">
-</div>
+<section id="filmy-i-aktorzy" class="title-slide slide level1 center">
+<h1>Filmy i aktorzy</h1>
 
 </section>
-<section>
+
 <section id="wstęp" class="title-slide slide level1 center">
-<h1><strong>Wstęp</strong></h1>
+<h1>Wstęp</h1>
 
-<img data-src="Pictures/IMDB%20250%20Movies.png" width="200" class="r-stretch quarto-figure-left"><p class="caption">IMDB Top 250 Movies</p></section>
-<section id="podstawowe-parametry-grafu" class="slide level2">
-<h2><strong>Podstawowe parametry grafu</strong></h2>
-<ul>
-<li><p>Liczba wierzchołków: 4079</p></li>
-<li><p>Liczba krawędzi: 4433</p></li>
-<li><p>Spójność: Brak</p></li>
-<li><p>Średnia ilość filmów dla aktora: 1.158</p></li>
-<li><p>Gęstość grafu: 0.000266</p></li>
-<li><p>Średnica grafu: 20</p></li>
-<li><p>Średnia długość ścieżki w grafie: 9.2375307</p></li>
-</ul>
+<img data-src="Pictures/IMDB%20250%20Movies.png" class="r-stretch"><p>W celu analizy grafu relacji między aktorami w filmach, skorzystaliśmy z danych ze strony IMDb, koncentrując się na top 250 tytułach według użytkowników. Proces rozpoczęliśmy od scrapowania informacji dotyczących tytułów filmów bezpośrednio ze strony, gdzie ranking jest wynikiem ocen udzielanych przez społeczność filmową. Następnie, dla każdego z tych tytułów, przeszliśmy do bardziej szczegółowego scrapowania danych aktorów związanych z danym filmem.</p>
+<p>Otrzymane dane pozwalają nam analizować relacje między aktorami na podstawie filmów cenionych przez użytkowników IMDb. Warto zauważyć, że rankingi te są rezultatem ocen i recenzji społeczności filmowej, co nadaje naszej analizie wymiar subiektywny i odzwierciedla preferencje widowni.</p>
 </section>
-<section id="rozkład-stopni-wierzchołków" class="slide level2">
-<h2><strong>Rozkład stopni wierzchołków</strong></h2>
 
-<img data-src="Pictures/plot_1.png" class="r-stretch quarto-figure-center"></section>
-<section id="poszczególne-parametry-wierzchołków" class="slide level2">
-<h2><strong>Poszczególne parametry wierzchołków</strong></h2>
-<ul>
-<li><p>Maksymalne pośrednictwo dla: Lawrence z Arabii</p></li>
-<li><p>Maksymalna bliskość dla: Bitwa o Algier</p></li>
-<li><p>Maksymalna centralność wektora własnego dla: Gwiezdne wojny: Część V - Imperium kontratakuje</p></li>
-<li><p>Maksymalny Page Rank dla: np. Miasto Boga</p></li>
-<li><p>Maksymalna ekscentryczność dla: np. Mel Gibson</p></li>
-</ul>
-</section>
-<section id="klastrowanie" class="slide level2">
-<h2><strong>Klastrowanie</strong></h2>
-<table>
-<colgroup>
-<col style="width: 26%">
-<col style="width: 36%">
-<col style="width: 37%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>Wielopoziomowy</th>
-<th>Szybki zachłanny</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Modułowość</td>
-<td>0.928701</td>
-<td>0.930139</td>
-</tr>
-<tr class="even">
-<td>Liczba społeczności</td>
-<td>80</td>
-<td>82</td>
-</tr>
-</tbody>
-</table>
-<p>NMI: 0.862809</p>
+<section id="liczba-wierzchołków-i-krawędzi" class="title-slide slide level1 center">
+<h1>Liczba wierzchołków i krawędzi</h1>
+<p>Liczba wierzchołków w naszym grafie wynosi 4079, co obejmuje zarówno filmy, których jest 250, jak i aktorów, których jest 3829.</p>
+<div class="quarto-figure quarto-figure-left">
+<figure>
+<p><img data-src="Comunities/actors_slide_1.png" width="200"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="Comunities/movies_slide_1.png"></p>
+</figure>
+</div>
 <div class="footer footer-default">
 
 </div>
-</section></section>
+</section>
     </div>
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Movies_Actors_Presentation_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="Movies_Actors_First_Part_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

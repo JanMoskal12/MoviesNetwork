@@ -25,7 +25,7 @@ fg <- cluster_fast_greedy(movies_actors_undirected_graph)
 
 # **Wstęp**
 
-[![IMDB Top 250 Movies](Pictures/IMDB%20250%20Movies.png){fig-align="center" width="1003"}](https://www.imdb.com/chart/top/)
+[![IMDB Top 250 Movies](Pictures/IMDB%20250%20Movies.png){fig-align="left" width="200"}](https://www.imdb.com/chart/top/)
 
 ## **Podstawowe parametry grafu**
 
@@ -62,7 +62,7 @@ fg <- cluster_fast_greedy(movies_actors_undirected_graph)
 ## **Klastrowanie**
 
 |                     | Wielopoziomowy              | Szybki zachłanny             |
-|---------------------|-----------------------------|------------------------------|
+|-------------------|--------------------------|---------------------------|
 | Modułowość          | `r round(modularity(l), 6)` | `r round(modularity(fg), 6)` |
 | Liczba społeczności | `r length(l)`               | `r length(fg)`               |
 

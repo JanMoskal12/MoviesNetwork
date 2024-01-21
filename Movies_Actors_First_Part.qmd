@@ -1,0 +1,88 @@
+---
+format: 
+  revealjs:
+    theme: sky
+editor: visual
+---
+
+```{r, include=FALSE}
+library(igraph)
+library(tidyverse)
+movies_actors_graph <- read.graph("graphml/movies_actors_graph.graphml", format = "graphml")
+movies_actors_undirected_df <- read_csv("exel/movies_actors_df.csv")
+movies_actors_undirected_graph <- graph.data.frame(movies_actors_undirected_df, directed = FALSE)
+
+dg_in <- degree(movies_actors_graph, mode = "in")
+bw1 <- betweenness(movies_actors_graph, directed = FALSE) 
+cl <- closeness(movies_actors_undirected_graph)
+ec1 <- eigen_centrality(movies_actors_graph)
+pg1 <- page_rank(movies_actors_graph, directed = FALSE)
+ecc <- eccentricity(movies_actors_undirected_graph)
+l <- cluster_louvain(movies_actors_undirected_graph)
+fg <- cluster_fast_greedy(movies_actors_undirected_graph)
+```
+
+```{r}
+is.connected(movies_actors_graph, mode = "strong") 
+is.connected(movies_actors_graph, mode = "weak") 
+```
+
+# Filmy i aktorzy
+
+# Wstęp
+
+![](Pictures/IMDB%20250%20Movies.png)
+
+W celu analizy grafu relacji między aktorami w filmach, skorzystaliśmy z danych ze strony IMDb, koncentrując się na top 250 tytułach według użytkowników. Proces rozpoczęliśmy od scrapowania informacji dotyczących tytułów filmów bezpośrednio ze strony, gdzie ranking jest wynikiem ocen udzielanych przez społeczność filmową. Następnie, dla każdego z tych tytułów, przeszliśmy do bardziej szczegółowego scrapowania danych aktorów związanych z danym filmem.
+
+Otrzymane dane pozwalają nam analizować relacje między aktorami na podstawie filmów cenionych przez użytkowników IMDb. Warto zauważyć, że rankingi te są rezultatem ocen i recenzji społeczności filmowej, co nadaje naszej analizie wymiar subiektywny i odzwierciedla preferencje widowni.
+
+# Skierowany czy nieskierowany
+
+W naszym przypadku, mimo że graf jest zasadniczo skierowany - gdzie krawędzie reprezentują relacje od filmu do aktora - wielokrotnie korzystamy z nieskierowanej wersji grafu w analizach.
+
+Dodatkowo, analiza nieskierowanego grafu zdaje się być bardziej intuicyjna i spójna w kontekście relacji między aktorami i filmami, ponieważ nie rozróżnia, który element (aktor czy film) ma większy wpływ na drugi.
+
+W rezultacie, wybór wersji nieskierowanej grafu nie tylko jest konieczny dla niektórych parametrów analizy, ale również ma sens w kontekście samej struktury grafu, gdzie wzajemność relacji jest kluczowa dla zrozumienia dynamicznych interakcji między aktorami a filmami.
+
+![](Comunities/directed_slide_2.png){fig-align="left"}
+
+# Liczba wierzchołków
+
+Liczba wierzchołków w naszym grafie wynosi 4079, co obejmuje zarówno filmy, których jest 250, jak i aktorów, których jest 3829.
+
+![](Comunities/actors_slide_1.png){fig-align="left" width="180"}
+
+![](Comunities/movies_slide_1.png){fig-align="right" width="200"}
+
+# Liczba krawędzi i gęstość
+
+Liczba wierzchołków w naszym grafie wynosi 4433, a gestość grafu wynosi 0.000266. Ta niska wartość gestości jest zrozumiała, biorąc pod uwagę charakter naszej analizy, która koncentruje się głównie na aktorach grających w filmach.
+
+Ponieważ liczba aktorów (3828) stanowi znaczną część ogólnej liczby wierzchołków, powoduje to, że potencjalnych połączeń między aktorami byłoby bardzo dużo. Jednakże, z uwagi na specyfikę analizy, skupiamy się na relacjach między aktorami a filmami, co przyczynia się do obniżenia ogólnej gestości grafu.
+
+Dodatkowo, fakt, że aktorzy z reguły grają w jednym z filmów z listy, a nie w wielu, ogranicza liczbę potencjalnych połączeń między aktorami a filmami. To zjawisko wpływa na strukturę grafu, sprawiając, że gestość jest niska
+
+![](Pictures/plot_1.png)
+
+![](Comunities/actorXmovie_slide_1.png)
+
+# Spójność
+
+![](Comunities/directed_check_slide_3.png)
+
+![](Comunities/unconnected_slide_3.png){fig-align="center"}
+
+Mamy wiele filmów tego typu, gdzie żaden aktor nie jest połączony z innym filmem co tworzy takie wyizolowane grupy aktrów wokół jednego filmu.
+
+# Średnica i średnia długość ścieżki
+
+## **Zdjęcie średnicy**
+
+Średnica naszego grafu wynosi 20, co oznacza, że najdłuższa spośród najkrótszych ścieżek między dwoma wierzchołkami wynosi 20. Jednakże, warto zauważyć, że nasz graf jest niespójny, co oznacza, że składa się z kilku składowych spójnych, pomiędzy którymi nie ma bezpośrednich połączeń.
+
+## **Zdjecie jakiejsc sciezki dla z 9 krawedzi**
+
+Podobna sytuacja występuje również w przypadku średniej długości ścieżki w naszym grafie, która wynosi 9.2375307. To oznacza, że, średnio, najkrótsza ścieżka między dwoma wierzchołkami wynosi około 9.24.
+
+#

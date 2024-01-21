@@ -1,0 +1,46 @@
+
+Podstawowe parametry grafu
+
+    Liczba wierzchołków: 4079
+
+    Liczba krawędzi: 4433
+
+    Spójność: Brak
+
+    Średnia ilość filmów dla aktora: 1.158
+
+    Gęstość grafu: 0.000266
+
+    Średnica grafu: 20
+
+    Średnia długość ścieżki w grafie: 9.2375307
+
+Rozkład stopni wierzchołków
+Poszczególne parametry wierzchołków
+
+    Maksymalne pośrednictwo dla: Lawrence z Arabii
+
+    Maksymalna bliskość dla: Bitwa o Algier
+
+    Maksymalna centralność wektora własnego dla: Gwiezdne wojny: Część V - Imperium kontratakuje
+
+    Maksymalny Page Rank dla: np. Miasto Boga
+
+    Maksymalna ekscentryczność dla: np. Mel Gibson
+
+//////////////////////////////////////////////////////
+
+Poszczególne parametry wierzchołków
+
+    Maksymalne pośrednictwo dla: Lawrence z Arabii
+
+    Maksymalna bliskość dla: Bitwa o Algier
+
+    Maksymalna centralność wektora własnego dla: Gwiezdne wojny: Część V - Imperium kontratakuje
+
+    Maksymalny Page Rank dla: np. Miasto Boga
+
+    Maksymalna ekscentryczność dla: np. Mel Gibson
+
+//////////////////////////////////////////////////////
+

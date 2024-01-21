@@ -16,7 +16,7 @@ library(igraph)
 
 ```{r, include=FALSE}
 # Reading movies_actors_graph
-movies_actors_graph <- read.graph("movies_actors_graph.graphml", format = "graphml")
+movies_actors_graph <- read.graph("../graphml/movies_actors_graph.graphml", format = "graphml")
 ```
 
 ## Analysis of the network as a whole

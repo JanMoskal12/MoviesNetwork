@@ -61,9 +61,13 @@ fg <- cluster_fast_greedy(movies_actors_undirected_graph)
 
 ## **Klastrowanie**
 
-|                     | Wielopoziomowy              | Szybki zachłanny             |
-|-------------------|--------------------------|---------------------------|
-| Modułowość          | `r round(modularity(l), 6)` | `r round(modularity(fg), 6)` |
-| Liczba społeczności | `r length(l)`               | `r length(fg)`               |
+|                       | Liczba społeczności  | Modułowość                    |
+|-----------------------|---------------------|-----------------------------|
+| Szybki zachłanny      |  82                  |  0.93                         |
+| Wielopoziomowy        |  78                  |  0.929                        |
+| Wiodący wektor własny |  115                 |  0.91                         |
+| Pośrednictwa krawędzi |  84                  |  0.927                        |
+
+Szybki zachłanny
 
 NMI: `r round(compare(l, fg, method = "nmi"), 6)`

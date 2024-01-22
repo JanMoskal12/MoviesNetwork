@@ -61,6 +61,7 @@ fg <- cluster_fast_greedy(movies_actors_undirected_graph)
 
 ## **Klastrowanie**
 
+
 |                       | Liczba społeczności  | Modułowość                    |
 |-----------------------|---------------------|-----------------------------|
 | Szybki zachłanny      |  82                  |  0.93                         |
@@ -68,6 +69,11 @@ fg <- cluster_fast_greedy(movies_actors_undirected_graph)
 | Wiodący wektor własny |  115                 |  0.91                         |
 | Pośrednictwa krawędzi |  84                  |  0.927                        |
 
+
+
 Szybki zachłanny
+=======
+
+>>>>>>> Stashed changes
 
 NMI: `r round(compare(l, fg, method = "nmi"), 6)`

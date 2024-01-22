@@ -8,7 +8,7 @@
 <link href="Movies_Actors_First_Part_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="Movies_Actors_First_Part_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="Movies_Actors_First_Part_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.353">
+  <meta name="generator" content="quarto-1.3.450">
 
   <title>movies_actors_first_part</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -324,6 +324,17 @@
     <div class="slides">
 
 
+<section class="slide level2">
+
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
 <section id="filmy-i-aktorzy" class="title-slide slide level1 center">
 <h1>Filmy i aktorzy</h1>
 
@@ -336,19 +347,64 @@
 <p>Otrzymane dane pozwalają nam analizować relacje między aktorami na podstawie filmów cenionych przez użytkowników IMDb. Warto zauważyć, że rankingi te są rezultatem ocen i recenzji społeczności filmowej, co nadaje naszej analizie wymiar subiektywny i odzwierciedla preferencje widowni.</p>
 </section>
 
-<section id="liczba-wierzchołków-i-krawędzi" class="title-slide slide level1 center">
-<h1>Liczba wierzchołków i krawędzi</h1>
+<section id="skierowany-czy-nieskierowany" class="title-slide slide level1 center">
+<h1>Skierowany czy nieskierowany</h1>
+<p>W naszym przypadku, mimo że graf jest zasadniczo skierowany - gdzie krawędzie reprezentują relacje od filmu do aktora - wielokrotnie korzystamy z nieskierowanej wersji grafu w analizach.</p>
+<p>Dodatkowo, analiza nieskierowanego grafu zdaje się być bardziej intuicyjna i spójna w kontekście relacji między aktorami i filmami, ponieważ nie rozróżnia, który element (aktor czy film) ma większy wpływ na drugi.</p>
+<p>W rezultacie, wybór wersji nieskierowanej grafu nie tylko jest konieczny dla niektórych parametrów analizy, ale również ma sens w kontekście samej struktury grafu, gdzie wzajemność relacji jest kluczowa dla zrozumienia dynamicznych interakcji między aktorami a filmami.</p>
+
+<img data-src="Comunities/directed_slide_2.png" class="r-stretch quarto-figure-left"></section>
+
+<section id="liczba-wierzchołków" class="title-slide slide level1 center">
+<h1>Liczba wierzchołków</h1>
 <p>Liczba wierzchołków w naszym grafie wynosi 4079, co obejmuje zarówno filmy, których jest 250, jak i aktorów, których jest 3829.</p>
 <div class="quarto-figure quarto-figure-left">
 <figure>
-<p><img data-src="Comunities/actors_slide_1.png" width="200"></p>
+<p><img data-src="Comunities/actors_slide_1.png" width="180"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-right">
 <figure>
-<p><img data-src="Comunities/movies_slide_1.png"></p>
+<p><img data-src="Comunities/movies_slide_1.png" width="200"></p>
 </figure>
 </div>
+</section>
+
+<section id="liczba-krawędzi-i-gęstość" class="title-slide slide level1 center">
+<h1>Liczba krawędzi i gęstość</h1>
+<p>Liczba wierzchołków w naszym grafie wynosi 4433, a gestość grafu wynosi 0.000266. Ta niska wartość gestości jest zrozumiała, biorąc pod uwagę charakter naszej analizy, która koncentruje się głównie na aktorach grających w filmach.</p>
+<p>Ponieważ liczba aktorów (3828) stanowi znaczną część ogólnej liczby wierzchołków, powoduje to, że potencjalnych połączeń między aktorami byłoby bardzo dużo. Jednakże, z uwagi na specyfikę analizy, skupiamy się na relacjach między aktorami a filmami, co przyczynia się do obniżenia ogólnej gestości grafu.</p>
+<p>Dodatkowo, fakt, że aktorzy z reguły grają w jednym z filmów z listy, a nie w wielu, ogranicza liczbę potencjalnych połączeń między aktorami a filmami. To zjawisko wpływa na strukturę grafu, sprawiając, że gestość jest niska</p>
+<p><img data-src="Pictures/plot_1.png"></p>
+<p><img data-src="Comunities/actorXmovie_slide_1.png"></p>
+</section>
+
+<section id="spójność" class="title-slide slide level1 center">
+<h1>Spójność</h1>
+<p><img data-src="Comunities/directed_check_slide_3.png"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Comunities/unconnected_slide_3.png"></p>
+</figure>
+</div>
+<p>Mamy wiele filmów tego typu, gdzie żaden aktor nie jest połączony z innym filmem co tworzy takie wyizolowane grupy aktrów wokół jednego filmu.</p>
+</section>
+
+<section>
+<section id="średnica-i-średnia-długość-ścieżki" class="title-slide slide level1 center">
+<h1>Średnica i średnia długość ścieżki</h1>
+
+</section>
+<section id="zdjęcie-średnicy" class="slide level2">
+<h2><strong>Zdjęcie średnicy</strong></h2>
+<p>Średnica naszego grafu wynosi 20, co oznacza, że najdłuższa spośród najkrótszych ścieżek między dwoma wierzchołkami wynosi 20. Jednakże, warto zauważyć, że nasz graf jest niespójny, co oznacza, że składa się z kilku składowych spójnych, pomiędzy którymi nie ma bezpośrednich połączeń.</p>
+</section>
+<section id="zdjecie-jakiejsc-sciezki-dla-z-9-krawedzi" class="slide level2">
+<h2><strong>Zdjecie jakiejsc sciezki dla z 9 krawedzi</strong></h2>
+<p>Podobna sytuacja występuje również w przypadku średniej długości ścieżki w naszym grafie, która wynosi 9.2375307. To oznacza, że, średnio, najkrótsza ścieżka między dwoma wierzchołkami wynosi około 9.24.</p>
+</section></section>
+<section id="pośrednictwo" class="title-slide slide level1 center">
+<h1>Pośrednictwo</h1>
 <div class="footer footer-default">
 
 </div>

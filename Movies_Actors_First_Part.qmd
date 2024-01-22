@@ -85,4 +85,4 @@ Mamy wiele filmów tego typu, gdzie żaden aktor nie jest połączony z innym fi
 
 Podobna sytuacja występuje również w przypadku średniej długości ścieżki w naszym grafie, która wynosi 9.2375307. To oznacza, że, średnio, najkrótsza ścieżka między dwoma wierzchołkami wynosi około 9.24.
 
-#
+# Pośrednictwo

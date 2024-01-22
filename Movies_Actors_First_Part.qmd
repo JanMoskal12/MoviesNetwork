@@ -12,13 +12,14 @@ movies_actors_graph <- read.graph("graphml/movies_actors_graph.graphml", format 
 movies_actors_undirected_df <- read_csv("exel/movies_actors_df.csv")
 movies_actors_undirected_graph <- graph.data.frame(movies_actors_undirected_df, directed = FALSE)
 
+
 dg_in <- degree(movies_actors_graph, mode = "in")
 bw1 <- betweenness(movies_actors_graph, directed = FALSE) 
 cl <- closeness(movies_actors_undirected_graph)
 ec1 <- eigen_centrality(movies_actors_graph)
 pg1 <- page_rank(movies_actors_graph, directed = FALSE)
-ecc <- eccentricity(movies_actors_undirected_graph)
-l <- cluster_louvain(movies_actors_undirected_graph)
+ecc <- eccentricity(moouvavies_actors_undirected_graph)
+l <- cluster_lin(movies_actors_undirected_graph)
 fg <- cluster_fast_greedy(movies_actors_undirected_graph)
 ```
 

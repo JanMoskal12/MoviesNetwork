@@ -229,9 +229,18 @@ tkplot(comm1)
 
 
 
-# le <- cluster_leading_eigen(movies_actors_undirected_graph)
-# eb <- cluster_edge_betweenness(movies_actors_undirected_graph)
 
 ## NMI
 round(compare(l, fg, method = "nmi"), 6) # obliczenie parametru NMI podzialow (porównanie)
 ```
+
+```{r}
+ le <- cluster_leading_eigen(movies_actors_undirected_graph)
+ eb <- cluster_edge_betweenness(movies_actors_undirected_graph)
+ length(le) 115
+ length(eb) 84
+ round(modularity(le), 6)
+ round(modularity(eb), 6)
+```
+
+
